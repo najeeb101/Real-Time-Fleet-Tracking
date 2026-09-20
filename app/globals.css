@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* Wire the next/font variables into Tailwind's font scale. */
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/*
+ * Background and text colour are set with utilities in app/layout.tsx, not here.
+ * Tailwind v4 emits utilities inside @layer utilities, and unlayered CSS wins
+ * over layered CSS regardless of specificity — so a plain `body { background }`
+ * rule in this file would silently override `bg-slate-50 dark:bg-slate-950`.
+ */
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
