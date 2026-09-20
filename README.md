@@ -141,7 +141,8 @@ next.config.ts               pins the Turbopack workspace root
 |---|---|---|
 | Cards render, but never update | The table is not in the Realtime publication | Re-run section 5 of [schema.sql](schema.sql) |
 | Grid is empty, no error | RLS is on with no SELECT policy, so the fetch returns `[]` | Re-run section 4 of [schema.sql](schema.sql) |
-| "Missing NEXT_PUBLIC_SUPABASE_URL or …" panel | `.env.local` absent, or the dev server was started before it was written | Create the file, then restart `npm run dev` — Next only reads env files at startup |
+| "Missing NEXT_PUBLIC_SUPABASE_URL or …" panel | `.env.local` is absent or a value is blank | Create the file. The dev server watches `.env*` and reloads on its own; restart only if the panel persists |
+| Values edited but nothing changes | A stale `next dev` still holds port 3000, so the new one silently started on **3001** and your browser is showing the old process | Read the startup output for the port. On Windows, `taskkill /PID <pid> /F` on the process named in the "Another next dev server is already running" message |
 | "Live connection lost — reconnecting…" that never clears | URL or anon key present but wrong | Re-copy both from **Project Settings → API**, then restart |
 | Timestamps never change | The `set_last_updated` trigger is missing | Re-run section 3 of [schema.sql](schema.sql) |
 | Each change appears twice in dev | A subscription leaked past Strict Mode's double-mount | `removeChannel` must run in the `useEffect` cleanup — see [docs/REALTIME.md](docs/REALTIME.md#react-strict-mode) |
